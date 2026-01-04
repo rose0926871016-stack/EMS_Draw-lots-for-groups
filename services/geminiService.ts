@@ -2,9 +2,14 @@
 import { GoogleGenAI } from "@google/genai";
 
 // 根據系統指令使用 process.env.API_KEY
-// 加入簡單判斷確保不會因為 apiKey 為空而導致拋錯
+// 使用更安全的存取方式
 const getAiClient = () => {
-  const apiKey = (typeof process !== 'undefined' && process.env && process.env.API_KEY) ? process.env.API_KEY : "";
+  let apiKey = "";
+  try {
+    apiKey = process.env.API_KEY || "";
+  } catch (e) {
+    console.warn("Could not access process.env.API_KEY directly");
+  }
   return new GoogleGenAI({ apiKey });
 };
 
@@ -27,9 +32,6 @@ export const getEMSCommentary = async (name: string, type: 'winner' | 'group'): 
     return response.text || "保持冷靜，繼續救人！";
   } catch (error) {
     console.error("Gemini Error:", error);
-    if (error instanceof Error && error.message.includes("API key")) {
-      console.warn("注意：請確保已在 Vercel 環境變數中設定 API_KEY");
-    }
     return "祝賀你！準備好出勤了嗎？";
   }
 };

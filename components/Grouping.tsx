@@ -13,6 +13,16 @@ const Grouping: React.FC<GroupingProps> = ({ participants }) => {
   const [teamNames, setTeamNames] = useState<Record<number, string>>({});
   const [isLoadingTeams, setIsLoadingTeams] = useState<Record<number, boolean>>({});
 
+  if (participants.length === 0) {
+    return (
+      <div className="max-w-2xl mx-auto text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200 shadow-inner">
+        <i className="fas fa-layer-group text-6xl text-slate-200 mb-4"></i>
+        <h3 className="text-2xl font-bold text-slate-800 mb-2">尚未匯入名單</h3>
+        <p className="text-slate-500 mb-6">請先前往「名單設定」貼上學員姓名或上傳檔案，才能進行智能分組。</p>
+      </div>
+    );
+  }
+
   const doGrouping = () => {
     const shuffled = [...participants].sort(() => Math.random() - 0.5);
     const newGroups: Group[] = [];

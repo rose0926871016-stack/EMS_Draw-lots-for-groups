@@ -31,15 +31,13 @@ const Header: React.FC<HeaderProps> = ({ currentView, setView, hasParticipants }
           </button>
           <button 
             onClick={() => setView('lucky-draw')}
-            disabled={!hasParticipants}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${!hasParticipants ? 'opacity-50 cursor-not-allowed' : ''} ${currentView === 'lucky-draw' ? 'bg-red-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
+            className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${currentView === 'lucky-draw' ? 'bg-red-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
           >
             <i className="fas fa-gift mr-2"></i>獎品抽籤
           </button>
           <button 
             onClick={() => setView('grouping')}
-            disabled={!hasParticipants}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${!hasParticipants ? 'opacity-50 cursor-not-allowed' : ''} ${currentView === 'grouping' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
+            className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${currentView === 'grouping' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
           >
             <i className="fas fa-layer-group mr-2"></i>智能分組
           </button>

@@ -10,7 +10,7 @@ interface LuckyDrawProps {
 const LuckyDraw: React.FC<LuckyDrawProps> = ({ participants }) => {
   const [isDrawing, setIsDrawing] = useState(false);
   const [allowRepeat, setAllowRepeat] = useState(false);
-  const [remainingPool, setRemainingPool] = useState<Participant[]>([...participants]);
+  const [remainingPool, setRemainingPool] = useState<Participant[]>([]);
   const [winner, setWinner] = useState<Participant | null>(null);
   const [displayIndex, setDisplayIndex] = useState(0);
   const [aiComment, setAiComment] = useState<string>('');
@@ -26,9 +26,19 @@ const LuckyDraw: React.FC<LuckyDrawProps> = ({ participants }) => {
     setAiComment('');
   }, [participants]);
 
+  if (participants.length === 0) {
+    return (
+      <div className="max-w-2xl mx-auto text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200 shadow-inner">
+        <i className="fas fa-user-slash text-6xl text-slate-200 mb-4"></i>
+        <h3 className="text-2xl font-bold text-slate-800 mb-2">尚未匯入名單</h3>
+        <p className="text-slate-500 mb-6">請先前往「名單設定」貼上學員姓名或上傳檔案。</p>
+      </div>
+    );
+  }
+
   const startDraw = async () => {
     if (remainingPool.length === 0 && !allowRepeat) {
-      alert('所有學員都已經被抽過了！請重新設定。');
+      alert('所有學員都已經被抽過了！請重置母數或開啟重複抽獎。');
       return;
     }
 
