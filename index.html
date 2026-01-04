@@ -22,6 +22,10 @@
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
+    <!-- 定義環境變數墊片，防止 process.env.API_KEY 導致的 ReferenceError -->
+    <script>
+      window.process = window.process || { env: { API_KEY: "" } };
+    </script>
     <script type="importmap">
 {
   "imports": {
@@ -37,7 +41,7 @@
 </head>
 <body class="bg-slate-50 text-slate-900">
     <div id="root"></div>
-    <!-- 必須明確載入 index.tsx -->
+    <!-- 明確載入進入點 -->
     <script type="module" src="./index.tsx"></script>
 </body>
 </html>
