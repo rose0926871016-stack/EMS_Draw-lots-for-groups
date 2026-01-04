@@ -2,9 +2,9 @@
 import { GoogleGenAI } from "@google/genai";
 
 // 根據系統指令使用 process.env.API_KEY
-// 加入簡單判斷確保不會因為 apiKey 為空而導致 top-level 拋錯
+// 加入簡單判斷確保不會因為 apiKey 為空而導致拋錯
 const getAiClient = () => {
-  const apiKey = process.env.API_KEY || "";
+  const apiKey = (typeof process !== 'undefined' && process.env && process.env.API_KEY) ? process.env.API_KEY : "";
   return new GoogleGenAI({ apiKey });
 };
 
@@ -27,9 +27,8 @@ export const getEMSCommentary = async (name: string, type: 'winner' | 'group'): 
     return response.text || "保持冷靜，繼續救人！";
   } catch (error) {
     console.error("Gemini Error:", error);
-    // 如果是 API Key 問題，在控制台給予提示但不要中斷程式
     if (error instanceof Error && error.message.includes("API key")) {
-      console.warn("注意：請確保已在環境變數中設定 API_KEY");
+      console.warn("注意：請確保已在 Vercel 環境變數中設定 API_KEY");
     }
     return "祝賀你！準備好出勤了嗎？";
   }
