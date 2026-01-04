@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import Header from './components/Header';
-import ParticipantInput from './components/ParticipantInput';
-import LuckyDraw from './components/LuckyDraw';
-import Grouping from './components/Grouping';
-import { Participant, ViewType } from './types';
+import Header from './components/Header.tsx';
+import ParticipantInput from './components/ParticipantInput.tsx';
+import LuckyDraw from './components/LuckyDraw.tsx';
+import Grouping from './components/Grouping.tsx';
+import { Participant, ViewType } from './types.ts';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewType>('setup');

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Participant } from '../types';
-import { getEMSCommentary } from '../services/geminiService';
+import { Participant } from '../types.ts';
+import { getEMSCommentary } from '../services/geminiService.ts';
 
 interface LuckyDrawProps {
   participants: Participant[];
@@ -20,7 +20,6 @@ const LuckyDraw: React.FC<LuckyDrawProps> = ({ participants }) => {
   const intervalRef = useRef<number | null>(null);
 
   useEffect(() => {
-    // Reset pool if original list changes
     setRemainingPool([...participants]);
     setHistory([]);
     setWinner(null);
@@ -37,7 +36,6 @@ const LuckyDraw: React.FC<LuckyDrawProps> = ({ participants }) => {
     setWinner(null);
     setAiComment('');
 
-    // Fast cycling animation
     let count = 0;
     const maxCycles = 30;
     
@@ -65,7 +63,6 @@ const LuckyDraw: React.FC<LuckyDrawProps> = ({ participants }) => {
       setRemainingPool(prev => prev.filter(p => p.id !== selected.id));
     }
 
-    // Get fun Gemini commentary
     setIsLoadingAi(true);
     const comment = await getEMSCommentary(selected.name, 'winner');
     setAiComment(comment);

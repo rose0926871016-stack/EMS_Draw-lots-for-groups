@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { Participant, Group } from '../types';
-import { getEMSCommentary } from '../services/geminiService';
+import { Participant, Group } from '../types.ts';
+import { getEMSCommentary } from '../services/geminiService.ts';
 
 interface GroupingProps {
   participants: Participant[];
@@ -39,8 +39,6 @@ const Grouping: React.FC<GroupingProps> = ({ participants }) => {
 
   const downloadCSV = () => {
     if (groups.length === 0) return;
-
-    // 定義 CSV 內容，包含 BOM 以支援 Excel 開啟中文不編碼錯誤
     let csvContent = "\uFEFF小隊,成員姓名\n";
     groups.forEach(group => {
       group.members.forEach(member => {
